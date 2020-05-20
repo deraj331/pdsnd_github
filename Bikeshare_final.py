@@ -211,7 +211,7 @@ def main():
 
         print('-'*40)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        restart = input('\nWould you like to start over with different filters? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
         else:
