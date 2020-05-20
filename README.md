@@ -8,8 +8,10 @@ Udacity GitHub Project
 This project is designed to show competancy in using Git along with GitHub
 
 ### Files used
-Include the files used
+bikeshare_final.py
+chicago.csv
+washington.csv
+new_york_city.csv
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
-
+Much credit goes to the team at Udacity for setting up such a great learning environment.
