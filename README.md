@@ -1,11 +1,11 @@
 ### Date created
-Include the date you created this project and README file.
+created 5/19/2020
 
 ### Project Title
-Replace the Project Title
+Udacity GitHub Project
 
 ### Description
-Describe what your project is about and what it does
+This project is designed to show competancy in using Git along with GitHub
 
 ### Files used
 Include the files used
