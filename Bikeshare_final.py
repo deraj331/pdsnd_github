@@ -21,10 +21,10 @@ def main():
 
         #Gathers user input for city
         print('First, enter which city would you like to explore: Chicago, New York City, or Washington? ')
-        city = input('Choice: ').lower()
-        while city not in ('chicago', 'new york city', 'washington'):
+        location = input('Choice: ').lower()
+        while location not in ('chicago', 'new york city', 'washington'):
             print('Whoops! Please enter one of the following: Chicago, New York City, Washington...')
-            city = input().lower()
+            location = input().lower()
 
         #Gathers user input for month
         print('\nNext, enter which month you would like to look at from January to June.\nOr, you can enter "All" for to look at all months: ')
@@ -41,7 +41,7 @@ def main():
             day = input().lower()
 
         print('-'*40)
-        return city, month, day
+        return location, month, day
 
     def load_data(city, month, day):
         """
