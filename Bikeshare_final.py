@@ -35,13 +35,13 @@ def main():
 
         #Gathers user input for day of the week
         print('\nFinally, choose a day of the week to look at. Or, you can enter "All" to look at all days of the week.')
-        day = input('Choice: ').lower()
-        while day not in ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all'):
+        day_of_week = input('Choice: ').lower()
+        while day_of_week not in ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all'):
             print('Whoops! Please enter one of the following: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or All...')
-            day = input().lower()
+            day_of_week = input().lower()
 
         print('-'*40)
-        return location, month, day
+        return location, month, day_of_week
 
     def load_data(city, month, day):
         """
