@@ -7,6 +7,20 @@ def main():
                 'new york city': 'new_york_city.csv',
                 'washington': 'washington.csv' }
 
+    days_of_week = {0:'Sunday', 1:'Monday', 
+                   2:'Tuesday', 3:'Wednesday', 
+                   4:'Thursday', 5:'Friday', 
+                   6:'Saturday'}
+    month_names = {1:'January', 2:'February', 3:'March', 4:'April', 
+                   5:'May', 6:'June', 7:'July', 8:'August', 9:'September',
+                   10:'October', 11:'November', 12:'December'}
+    hour_to_time = {0:'Midnight', 1:'1:00 am', 2:'2:00 am', 3:'3:00 am',
+                   4:'4:00 am', 5:'5:00 am', 6:'6:00 am', 7:'7:00 am',
+                   8:'8:00 am', 9:'9:00 am', 10:'10:00 am', 11:'11:00 am',
+                   12:'12:00 pm', 13:'1:00 pm', 14:'2:00 pm', 15:'3:00 pm',
+                   16:'4:00 pm', 17:'5:00 pm', 18:'6:00 pm', 19:'7:00 pm',
+                   20:'8:00 pm', 21:'9:00 pm', 22:'10:00 pm', 23:'11:00 pm',}
+
     def get_filters():
         """
         Asks user to specify a city, month, and day to analyze.
@@ -21,10 +35,10 @@ def main():
 
         #Gathers user input for city
         print('First, enter which city would you like to explore: Chicago, New York City, or Washington? ')
-        location = input('Choice: ').lower()
-        while location not in ('chicago', 'new york city', 'washington'):
+        city = input('Choice: ').lower()
+        while city not in ('chicago', 'new york city', 'washington'):
             print('Whoops! Please enter one of the following: Chicago, New York City, Washington...')
-            location = input().lower()
+            city = input().lower()
 
         #Gathers user input for month
         print('\nNext, enter which month you would like to look at from January to June.\nOr, you can enter "All" for to look at all months: ')
@@ -35,13 +49,13 @@ def main():
 
         #Gathers user input for day of the week
         print('\nFinally, choose a day of the week to look at. Or, you can enter "All" to look at all days of the week.')
-        day_of_week = input('Choice: ').lower()
-        while day_of_week not in ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all'):
+        day = input('Choice: ').lower()
+        while day not in ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all'):
             print('Whoops! Please enter one of the following: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or All...')
-            day_of_week = input().lower()
+            day = input().lower()
 
         print('-'*40)
-        return location, month, day_of_week
+        return city, month, day
 
     def load_data(city, month, day):
         """
@@ -62,7 +76,7 @@ def main():
 
         # extract month and day of week from Start Time to create new columns
         df['month'] = df['Start Time'].dt.month
-        df['day_of_week'] = df['Start Time'].dt.weekday_name
+        df['day_of_week'] = df['Start Time'].dt.weekday
         df['hour'] = df['Start Time'].dt.hour
 
 
@@ -76,8 +90,10 @@ def main():
 
         # filter by day of week if applicable
         if day != 'all':
+            days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+            day = days.index(day)
             # filter by day of week to create the new dataframe
-            df = df[df['day_of_week']== day.title()]
+            df = df[df['day_of_week']== day]
         
         return df
 
@@ -94,17 +110,17 @@ def main():
             popular_day = df['day_of_week'].mode()[0]
             popular_hour = df['hour'].mode()[0]
 
-            print('In {}, the most common month to use Bikeshare is {}.\n'.format(city.title(), popular_month))
-            print('The most common day to use Bikeshare is {}.\n'.format(popular_day))
-            print('Also, it may be a good idea to avoid using Bikeshare in hour {}.\n'.format(popular_hour))
+            print('In {}, the most common month to use Bikeshare is {}.\n'.format(city.title(), month_names[popular_month]))
+            print('The most common day to use Bikeshare is {}.\n'.format(days_of_week[popular_day]))
+            print('Also, it may be a good idea to avoid using Bikeshare at {}.\n'.format(hour_to_time[popular_hour]))
 
         #Most common day of week
         elif day == 'all':
             popular_day = df['day_of_week'].mode()[0]
             popular_hour = df['hour'].mode()[0]
 
-            print('In {}, the most common day in {} to use Bikeshare is {}.\n'.format(city.title(), month.title(), popular_day))
-            print('Also, it may be a good idea to avoid using Bikeshare in hour {}.\n'.format(popular_hour))
+            print('In {}, the most common day in {} to use Bikeshare is {}.\n'.format(city.title(), month.title(), days_of_week[popular_day]))
+            print('Also, it may be a good idea to avoid using Bikeshare at {}.\n'.format(hour_to_time[popular_hour]))
 
         #Most common start hour
         else:
@@ -112,7 +128,7 @@ def main():
             popular_month = df['month'].mode()[0]
             popular_day = df['day_of_week'].mode()[0]
             popular_hour = df['hour'].mode()[0]
-            print('If you\'re in {} on a {} in {}, it may be a good idea to avoid using Bikeshare in hour {}.\n'.format(city.title(), popular_day, month.title(), popular_hour))
+            print('If you\'re in {} on a {} in {}, it may be a good idea to avoid using Bikeshare at {}.\n'.format(city.title(), day.title(), month.title(), hour_to_time[popular_hour]))
 
         print("\nThis took %s seconds." % (time.time() - start_time))
         print('-'*40)
@@ -211,7 +227,7 @@ def main():
 
         print('-'*40)
 
-        restart = input('\nWould you like to start over with different filters? Enter yes or no.\n')
+        restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
         else:
