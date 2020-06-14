@@ -159,6 +159,7 @@ def main():
                 trip_count[route] += 1
         most_trips = max(trip_count.values())
         popular_trip = [route for route, count in trip_count.items() if count == most_trips]
+        popular_trip = str(popular_trip)[2:-2]
 
         print('The most common trip(s) taken in {} for this time frame is/are from {}.\n'.format(city.title(), popular_trip))
 
